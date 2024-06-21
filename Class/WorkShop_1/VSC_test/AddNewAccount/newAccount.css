@@ -1,0 +1,8 @@
+/* input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+} */
+.gender-radio{
+  margin-right: 10px;
+  margin-bottom: 0px;
+  padding-top: 5px;
+}

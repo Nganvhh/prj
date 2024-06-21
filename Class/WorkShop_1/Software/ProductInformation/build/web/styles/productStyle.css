@@ -1,0 +1,54 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 17, 2024, 10:52:48 PM
+    Author     : NganNganchimte
+*/
+
+.all_products{
+    padding-left: 220px;
+    padding-top: 10px;
+}
+
+@media screen and (max-width:768px) {
+    .all_products{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+.product_wrapper{   
+    text-decoration: none !important;
+    text-align: center;
+}
+
+.product_wrapper:hover{
+    cursor: pointer;
+}
+.product_wrapper img{
+    width: 250px;
+    height: 250px;    
+}
+.product_wrapper_info{
+    margin: 5px 8px;
+}
+.product_wrapper_info-price-now, .product_wrapper_info-price-original, .product_wrapper_info-price-discount{
+    display: inline-block
+}
+.product_wrapper_info-price-now, .product_wrapper_info-price-discount{
+    color: red;
+}
+.product_wrapper_info-price-original{
+    color: gray;
+}
+.product_wrapper_info-price-discount{
+    font-size: 10px;
+    background-color: #FBEFEB;
+    padding: 2px;
+    border-radius: 3px;
+}
+.product_wrapper_info-name{
+    height: 30px;
+}
