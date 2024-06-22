@@ -20,5 +20,6 @@
         <%--<jsp:include page="head.jsp"/>--%>
         <h1 style="color: blue">Welcome to Mr. ${ttDangNhap.fullName} </h1>
         <a href="MainController?action=logout">Logout</a>
+        <jsp:include page="ListAccount.jsp"/>
     </body>
 </html>

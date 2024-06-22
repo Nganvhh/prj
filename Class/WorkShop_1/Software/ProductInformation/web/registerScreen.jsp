@@ -58,10 +58,10 @@
             <div class="header_button">
                 <ul>
                     <li style="display: ${loginedAccount == null?"":"none"}">
-                        <a href="MainController?action=login&firstLogin=1"><span class="glyphicon glyphicon-log-in header_button-icon"></span>Đăng nhập</a>
+                        <a href="MainController?action=login&firstLogin=1"><span class="glyphicon glyphicon-log-in header_button-icon"></span>Sign in</a>
                     </li>
                     <li style="display: ${loginedAccount != null?"":"none"}">
-                        <a href="MainController?action=logout"><span class="glyphicon glyphicon-log-out header_button-icon"></span>Đăng xuất</a>
+                        <a href="MainController?action=logout"><span class="glyphicon glyphicon-log-out header_button-icon"></span>Sign out</a>
                     </li>
                 </ul>
             </div>
@@ -76,7 +76,7 @@
 
         <div class="container">
             <h2>Add new account</h2>
-            <form action="MainController?action=validationAccount" class="form-horizontal" method="post">
+            <form action="MainController?action=validationAccount&behaviour=register" class="form-horizontal" method="post" accept-charset="UTF-8">
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="account">Username</label>
                     <div class="col-sm-10 check-input">
@@ -85,6 +85,7 @@
                             class="form-control"
                             id="username"
                             name="account"
+                            autocomplete="new-username"
                             placeholder="Username"
                             required
                             />
@@ -103,7 +104,7 @@
                             id="password"
                             placeholder="Password"
                             name="pass"
-                            
+                            autocomplete="new-password"
                             required
                             />
                         <small class="form-text"></small>
@@ -118,7 +119,7 @@
                             id="confirm-password"
                             placeholder="Confirm password"
                             name="confirm"
-                            
+                            autocomplete="new-confirm-password"
                             required
                             />
                         <small class="form-text"></small>
@@ -135,7 +136,7 @@
                             class="form-control"
                             name="lastName"
                             placeholder="Last name"
-                            
+                            autocomplete="new-lastname"
                             />
                     </div>
                 </div>
@@ -148,7 +149,7 @@
                             id="firstname"
                             name="firstName"
                             placeholder="First name"
-                            
+                            autocomplete="new-firstname"
                             required
                             />
                         <small class="form-text"></small>
@@ -161,7 +162,7 @@
                             type="tel"
                             class="form-control"
                             id="phone"
-                            
+                            autocomplete="new-phone"
                             name="phone"
                             placeholder="Phone number"
                             />
@@ -190,6 +191,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <c:if test="${loginedAccount != null && loginedAccount.roleInSystem == 1}">
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="role"
@@ -238,7 +240,7 @@
                 let confirmValue = confirmEle.value;
                 let firstnameValue = firstnameEle.value;
                 let isCheck = true;
-                // Kiểm tra trường account
+                // Kiểm tra trường Username/account
                 if (userValue == '') {
                     setError(userEle, "Username can not be empty.");
                     isCheck = false;
@@ -260,7 +262,7 @@
                         setSuccess(passEle);
                         setError(confirmEle);
                     } else {
-                        setError(confirmEle, "Those passwords didn’t match. Try again.");
+                        setError(confirmEle, "Those passwords didn't match. Try again.");
                     }
                 }
 

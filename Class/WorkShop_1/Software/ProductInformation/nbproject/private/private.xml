@@ -3,10 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Class/2024/SUMMER_2024/PRJ301/Class/WorkShop_1/Software/ProductInformation/web/listAccount.jsp</file>
             <file>file:/D:/Class/2024/SUMMER_2024/PRJ301/Class/WorkShop_1/Software/ProductInformation/src/java/controllers/MainController.java</file>
+            <file>file:/D:/Class/2024/SUMMER_2024/PRJ301/Class/WorkShop_1/Software/ProductInformation/web/listAccount.jsp</file>
+            <file>file:/D:/Class/2024/SUMMER_2024/PRJ301/Class/WorkShop_1/Software/ProductInformation/src/java/dto/Account.java</file>
+            <file>file:/D:/Class/2024/SUMMER_2024/PRJ301/Class/WorkShop_1/Software/ProductInformation/src/java/dao/AccountDAO.java</file>
             <file>file:/D:/Class/2024/SUMMER_2024/PRJ301/Class/WorkShop_1/Software/ProductInformation/web/updateAccount.jsp</file>
             <file>file:/D:/Class/2024/SUMMER_2024/PRJ301/Class/WorkShop_1/Software/ProductInformation/web/registerScreen.jsp</file>
+            <file>file:/D:/Class/2024/SUMMER_2024/PRJ301/Class/WorkShop_1/Software/ProductInformation/web/header.jsp</file>
+            <file>file:/D:/Class/2024/SUMMER_2024/PRJ301/Class/WorkShop_1/Software/ProductInformation/web/homeScreen.jsp</file>
             <file>file:/D:/Class/2024/SUMMER_2024/PRJ301/Class/WorkShop_1/Software/ProductInformation/src/java/controllers/RegisterServlet.java</file>
         </group>
     </open-files>

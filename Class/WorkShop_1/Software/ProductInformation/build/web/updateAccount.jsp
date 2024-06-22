@@ -4,6 +4,7 @@
     Author     : NganNganchimte
 --%>
 
+<%@page import="java.sql.Date"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -55,27 +56,23 @@
             <jsp:forward page="MainController?action=home"/>
         </c:if>
         <jsp:include page="header.jsp"/>
-
         <div class="container">
             <h2>Update account</h2>
-            <form action="MainController?action=validationAccount" class="form-horizontal" method="post">
+            <form action="MainController?action=validationAccount&behaviour=update" class="form-horizontal" method="post" accept-charset="UTF-8">
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="account">Username</label>
                     <div class="col-sm-10 check-input">
                         <input
                             type="text"
-                            disabled
                             class="form-control"
                             id="username"
                             name="account"
                             placeholder="Username"
                             value="<c:out value="${updatedAccount.account}"/>"
+                            readonly
                             required
                             />
-                        <small class="form-text"></small>
-                        <c:if test="${ExistAccount != null}">
-                            <small style="color: red">${ExistAccount}</small>
-                        </c:if>
+                        <input type="hidden" name="account" value="<c:out value="${updatedAccount.account}"/>"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -83,6 +80,7 @@
                     <div class="col-sm-10 check-input">
                         <input
                             type="password"
+                            disabled
                             class="form-control"
                             id="password"
                             placeholder="Password"
@@ -90,7 +88,7 @@
                             value="${updatedAccount.pass}"
                             required
                             />
-                        <small class="form-text"></small>
+                        <input type="hidden" name="pass" value="${updatedAccount.pass}"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -99,18 +97,17 @@
                         <input
                             type="password"
                             class="form-control"
+                            disabled
                             id="confirm-password"
                             placeholder="Confirm password"
                             name="confirm"
+                            value="${updatedAccount.pass}"
                             required
                             />
-                        <small class="form-text"></small>
-                        <c:if test="${ConfirmFalse != null}">
-                            <small style="color: red">${ConfirmFalse}</small>
-                        </c:if>
+                        <input type="hidden" name="confirm" value="${updatedAccount.pass}"/>
                     </div>
                 </div>
-                            
+
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="lastName">Last name</label>
                     <div class="col-sm-10">
@@ -156,6 +153,7 @@
                     </div>
                 </div>
                 <div class="form-group">
+
                     <label class="control-label col-sm-2" for="birthDay">Birth day</label>
                     <div class="col-sm-10">
                         <input id="dob" type="date" class="form-control" value="${updatedAccount.birthDay}" name="birthDay" />
@@ -165,17 +163,17 @@
                     <label class="control-label col-sm-2" for="gender">Gender</label>
                     <div class="col-sm-10">
                         <div class="form-check form-check-inline">
-                            <label class="radio-inline"><input type="radio" name="gender" ${updatedAccount.gender == true?"checked":""} /> Male</label                            >
-                            <label class="radio-inline"><input type="radio" name="gender" ${updatedAccount.gender == false?"checked":""} /> Female</label>
+                            <label class="radio-inline"><input type="radio" name="gender" value="1" ${updatedAccount.gender == true?"checked":""} /> Male</label                            >
+                            <label class="radio-inline"><input type="radio" name="gender" value="0" ${updatedAccount.gender == false?"checked":""} /> Female</label>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="isUse">In Use</label>
+                    <label class="control-label col-sm-2" for="isUse">Is Active</label>
                     <div class="col-sm-10">
                         <div class="form-check form-check-inline">
-                            <label class="radio-inline"><input type="radio" name="isUse" ${updatedAccount.isUse == true?"checked":""}/> Yes</label>
-                            <label class="radio-inline"><input type="radio" name="isUse" ${updatedAccount.isUse == false?"checked":""}/> No</label>
+                            <label class="radio-inline"><input type="radio" name="isUse" value="1" ${updatedAccount.isUse == true?"checked":""}/> Yes</label>
+                            <label class="radio-inline"><input type="radio" name="isUse" value="0" ${updatedAccount.isUse == false?"checked":""}/> No</label>
                         </div>
                     </div>
                 </div>
@@ -192,7 +190,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <input type="hidden" id="isChange" name="isChange"/>
+                        <button type="submit" id="btn-register" class="btn btn-danger">Cancel</button>
                         <button type="submit" id="btn-register" class="btn btn-success">Save</button>
                     </div>
                 </div>
@@ -200,10 +198,10 @@
         </div>
 
         <script>
-            function checkModification(){
-                
+            function checkModification() {
+
             }
-            
+
             const btnRegister = document.getElementById('btn-register');
             const inputEles = document.querySelectorAll('.check-input');
 
@@ -251,7 +249,7 @@
                     if (passValue == confirmValue) {
                         setSuccess(passEle);
                         setError(confirmEle);
-                    } 
+                    }
                 }
 
                 // Kiểm tra trường firstname

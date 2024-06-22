@@ -41,6 +41,7 @@ public class MainController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         String url = "";
         Map<String, Account> mapAccount = null;
         Map<Integer, Category> mapCategory = null;
@@ -110,7 +111,7 @@ public class MainController extends HttpServlet {
                     break;
                 case "loadListAccount":
                     mapAccount = (HashMap) new AccountDAO(getServletContext()).listAll();
-//                    System.out.println(mapAccount.get("admin").getRoleInSystem() == 1);
+                    System.out.println("username: " + mapAccount.get("username").isIsUse());
                     session.setAttribute("mapAccount", mapAccount);
                     url = "listAccount.jsp";
                     break;
@@ -135,11 +136,12 @@ public class MainController extends HttpServlet {
                     url = "MainController?action=loadListAccount";
                     break;
                 case "update":
-                    account = request.getParameter("account");
-                    Account updatedAccount = new AccountDAO(getServletContext()).getObjectById(account);
-                    System.out.println(updatedAccount.getPhone());
-                    request.setAttribute("updatedAccount", updatedAccount);
-                    url = "updateAccount.jsp";
+                        System.out.println("do day duoc r");
+                        account = request.getParameter("account");
+                        Account updatedAccount = new AccountDAO(getServletContext()).getObjectById(account);
+                        System.out.println(updatedAccount.getPhone());
+                        request.setAttribute("updatedAccount", updatedAccount);
+                        url = "updateAccount.jsp";
                     break;
                 default:
                     break;

@@ -69,15 +69,9 @@
                                         <td>${mapAccount.get(i).phone}</td>
                                         <td>
                                             <c:choose>
-                                                <c:when test="${mapAccount.get(i).getRoleInSystem() == 2}">
-                                                    Staff
-                                                </c:when>
-                                                <c:when test="${mapAccount.get(i).getRoleInSystem() == 1}">
-                                                    Administrator
-                                                </c:when>
-                                                <c:otherwise>
-                                                    Customer
-                                                </c:otherwise>
+                                                <c:when test="${mapAccount.get(i).getRoleInSystem() == 2}">Staff</c:when>
+                                                <c:when test="${mapAccount.get(i).getRoleInSystem() == 1}">Administrator</c:when>
+                                                <c:otherwise>Customer</c:otherwise>
                                             </c:choose>
                                         </td>
                                         <td>
@@ -93,20 +87,26 @@
                                                 <c:param name="action" value="delete"/>
                                                 <c:param name="account" value="${mapAccount.get(i).account}"/>
                                             </c:url>
+
                                             <a href="${updateUrl}" class="btn btn-primary">Update</a>
                                             <a href="${stateUrl}" class="btn btn-success">
-                                                <c:if test="${mapAccount.get(i).isUse == true}">Active</c:if>
-                                                <c:if test="${mapAccount.get(i).isUse == false}">Defective</c:if>
-                                                </a>
-                                                <a href="${deleteUrl}" class="btn btn-danger">Delete</a>
+                                                <c:choose>
+                                                    <c:when test="${mapAccount.get(i).isUse == true}">Active</c:when>
+                                                    <c:when test="${mapAccount.get(i).isUse == false}">Defective</c:when>
+                                                </c:choose>
+                                            </a>
+                                            <a href="${deleteUrl}" class="btn btn-danger">Delete</a>
 
                                         </td>
                                     </tr>
                                 </c:if>
                             </c:forEach>
                         </tbody>
-                    </table>      
+                    </table>   
                 </div>
+            </div>
+            <div class="col-md-12" style="text-align: center; padding-bottom: 30px">
+                <a href="MainController?action=register&behaviour=newAccount">Add new account</a>
             </div>
         </div>
     </body>

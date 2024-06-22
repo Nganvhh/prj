@@ -31,14 +31,14 @@
                     <div class="header_button">
                         <ul>
                             <li style="display:${loginedAccount == null?"":"none"}">
-                                <a href="MainController?action=register&behaviour=newAccount"><span class="glyphicon glyphicon-user text-dark header_button-icon"></span>Đăng ký</a>
+                                <a href="MainController?action=register&behaviour=newAccount"><span class="glyphicon glyphicon-user text-dark header_button-icon"></span>Register</a>
                             </li>
 
                             <li style="display: ${loginedAccount == null?"":"none"}">
-                                <a href="MainController?action=login&firstLogin=1"><span class="glyphicon glyphicon-log-in header_button-icon"></span>Đăng nhập</a>
+                                <a href="MainController?action=login&firstLogin=1"><span class="glyphicon glyphicon-log-in header_button-icon"></span>Sign in</a>
                             </li>
                             <li style="display: ${loginedAccount != null?"":"none"}">
-                                <a href="MainController?action=logout"><span class="glyphicon glyphicon-log-out header_button-icon"></span>Đăng xuất</a>
+                                <a href="MainController?action=logout"><span class="glyphicon glyphicon-log-out header_button-icon"></span>Sign out</a>
                             </li>
                         </ul>
 

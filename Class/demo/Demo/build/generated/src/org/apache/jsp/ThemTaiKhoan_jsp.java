@@ -70,7 +70,7 @@ public final class ThemTaiKhoan_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("                <img src=\"Images/addAccount.png\" alt=\"\"/>\n");
       out.write("            </div>\n");
       out.write("            <div class=\"col-md-8\">\n");
-      out.write("                <form action=\"addAccount\" method=\"post\">\n");
+      out.write("                <form action=\"MainController\" method=\"post\">\n");
       out.write("                    <div class=\"form-group\">\n");
       out.write("                        <label for=\"account\">Account name:</label>\n");
       out.write("                        <input type=\"text\" class=\"form-control\" name=\"account\">\n");
@@ -102,7 +102,7 @@ public final class ThemTaiKhoan_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("                        <label for=\"memo\">Memo:</label>\n");
       out.write("                        <input type=\"text\" class=\"form-control\" name=\"memo\">\n");
       out.write("                    </div>\n");
-      out.write("                    <button type=\"submit\" class=\"btn btn-default\">Submit</button>\n");
+      out.write("                    <button type=\"submit\" class=\"btn btn-default\" value=\"register\" name=\"action\">Submit</button>\n");
       out.write("                </form>\n");
       out.write("            </div>\n");
       out.write("        </div>\n");

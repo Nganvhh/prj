@@ -81,12 +81,67 @@ public class AccountDAO implements Accessible<Account> {
 
     @Override
     public int updateRec(Account obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int result = 0;
+        if (connection != null) {
+            try {
+                String sqlString = "update accounts\n"
+                        + "set  [lastName] = ?,\n"
+                        + "     [firstName] = ?,\n"
+                        + "	[birthday] = ?,\n"
+                        + "	[gender] = ?,\n"
+                        + "	[phone] = ?,\n"
+                        + "	[isUse] = ?,\n"
+                        + "	[roleInSystem] = ?\n"
+                        + "where [account] = ?";
+
+                PreparedStatement cmd = this.connection.prepareStatement(sqlString);
+                cmd.setString(1, obj.getLastName());
+                cmd.setString(2, obj.getFirstName());
+                cmd.setDate(3, obj.getBirthDay());
+                cmd.setBoolean(4, obj.isGender());
+                cmd.setString(5, obj.getPhone());
+                cmd.setBoolean(6, obj.isIsUse());
+                cmd.setInt(7, obj.getRoleInSystem());
+                cmd.setString(8, obj.getAccount());
+                result = cmd.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                try {
+                    if (connection != null) {
+                        connection.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return result;
     }
 
     @Override
     public int deleteRec(Account obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int result = 0;
+        if (connection != null) {
+            try {
+                String sqlString = "delete from accounts where account = ?";
+                PreparedStatement cmd;
+                cmd = this.connection.prepareStatement(sqlString);
+                cmd.setString(1, obj.getAccount());
+                result = cmd.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                try {
+                    if (connection != null) {
+                        connection.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return result;
     }
 
     public int delete(String acc) {
@@ -100,6 +155,14 @@ public class AccountDAO implements Accessible<Account> {
                 result = cmd.executeUpdate();
             } catch (SQLException ex) {
                 Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                try {
+                    if (connection != null) {
+                        connection.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return result;
@@ -232,7 +295,7 @@ public class AccountDAO implements Accessible<Account> {
                     oldStatus = rs.getBoolean("isUse");
                     flag = false;
                 }
-                boolean newStatus = (oldStatus==false?true:false);
+                boolean newStatus = (oldStatus == false ? true : false);
                 sqlString = "update accounts\n"
                         + "set isUse = ?\n"
                         + "where account = ?";
@@ -299,14 +362,15 @@ public class AccountDAO implements Accessible<Account> {
     }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        int x = new AccountDAO().changeState("test");
-        System.out.println(x);
-        Account a = new AccountDAO().getObjectById("test");
-        System.out.println("isUse: " + a.isIsUse());
+//        int x = new AccountDAO().changeState("test");
+//        System.out.println(x);
+//        Account a = new AccountDAO().getObjectById("test");
+//        System.out.println("isUse: " + a.isIsUse());
+        Date tmp = Date.valueOf("1800-01-01");
+        System.out.println(tmp);
 //        System.out.println(x.getAccount());
 //        Map<String, Account> mapAccount = (HashMap) new AccountDAO().listAll();
 //        System.out.println(mapAccount.get("admin").getAccount());
-        
 
     }
 
