@@ -12,8 +12,6 @@ import dto.Account;
 import dto.Category;
 import dto.Product;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -56,7 +54,7 @@ public class MainController extends HttpServlet {
 
             switch (action) {
                 case IConstant.HOME:
-                    url = "homeScreen.jsp";
+                    url = IConstant.LINK_HOME;
                     break;
                 case IConstant.LOGIN:
                     String checkFirstLogin = request.getParameter("firstLogin");
@@ -136,10 +134,8 @@ public class MainController extends HttpServlet {
                     url = "MainController?action=loadListAccount";
                     break;
                 case "update":
-                        System.out.println("do day duoc r");
                         account = request.getParameter("account");
                         Account updatedAccount = new AccountDAO(getServletContext()).getObjectById(account);
-                        System.out.println(updatedAccount.getPhone());
                         request.setAttribute("updatedAccount", updatedAccount);
                         url = "updateAccount.jsp";
                     break;

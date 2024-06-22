@@ -190,18 +190,14 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" id="btn-register" class="btn btn-danger">Cancel</button>
-                        <button type="submit" id="btn-register" class="btn btn-success">Save</button>
+                        <button type="submit" id="btn-newCategory" class="btn btn-danger">Cancel</button>
+                        <button type="submit" id="btn-newCategory" class="btn btn-success">Save</button>
                     </div>
                 </div>
             </form>
         </div>
 
         <script>
-            function checkModification() {
-
-            }
-
             const btnRegister = document.getElementById('btn-register');
             const inputEles = document.querySelectorAll('.check-input');
 

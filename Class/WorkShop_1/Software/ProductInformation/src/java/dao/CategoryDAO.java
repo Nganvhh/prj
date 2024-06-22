@@ -31,8 +31,14 @@ public class CategoryDAO implements Accessible<Category> {
         this.connection = new ConnectDB().getConnection();
     }
 
-    public CategoryDAO(ServletContext sc) throws ClassNotFoundException, SQLException {
-        getConnect(sc);
+    public CategoryDAO(ServletContext sc) {
+        try {
+            getConnect(sc);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private Connection getConnect(ServletContext sc) throws ClassNotFoundException, SQLException {
@@ -51,13 +57,12 @@ public class CategoryDAO implements Accessible<Category> {
         int result = 0;
         if (this.connection != null) {
             try {
-                String sqlString = "insert into categories(typeId, categoryName, memo) \n"
-                        + "values (?, ?, ?)";
+                String sqlString = "insert into categories(categoryName, memo) \n"
+                        + "values (?, ?)";
                 PreparedStatement cmd;
                 cmd = this.connection.prepareStatement(sqlString);
-                cmd.setInt(1, obj.getTypeId());
-                cmd.setString(2, obj.getCategoryName());
-                cmd.setString(3, obj.getMemo());
+                cmd.setString(1, obj.getCategoryName());
+                cmd.setString(2, obj.getMemo());
                 result = cmd.executeUpdate();
             } catch (SQLException ex) {
                 Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -77,17 +82,136 @@ public class CategoryDAO implements Accessible<Category> {
 
     @Override
     public int updateRec(Category obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int result = 0;
+        if (connection != null) {
+            try {
+                String sqlString = "update categories\n"
+                        + "         set categoryName = ?, memo = ?\n"
+                        + "         where typeId = ?";
+                PreparedStatement cmd = this.connection.prepareStatement(sqlString);
+                cmd.setString(1, obj.getCategoryName());
+                cmd.setString(2, obj.getMemo());
+                cmd.setInt(3, obj.getTypeId());
+                result = cmd.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }finally {
+                try {
+                    if (connection != null) {
+                        connection.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return result;
     }
 
     @Override
     public int deleteRec(Category obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int result = 0;
+        if (connection != null) {
+            try {
+                String sqlString = "delete from categories\n"
+                        + "where typeId = ?";
+                PreparedStatement cmd = this.connection.prepareStatement(sqlString);
+                cmd.setInt(1, obj.getTypeId());
+                result = cmd.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+
+    public int delete(int id) {
+        int result = 0;
+        if (connection != null) {
+            try {
+                String sqlString = "delete from categories\n"
+                        + "where typeId = ?";
+                PreparedStatement cmd = this.connection.prepareStatement(sqlString);
+                cmd.setInt(1, id);
+                result = cmd.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }finally {
+                try {
+                    if (connection != null) {
+                        connection.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return result;
     }
 
     @Override
     public Category getObjectById(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Category x = null;
+        if (connection != null) {
+            try {
+                int typteId = Integer.parseInt(id);
+                String sqlString = "select typeId, categoryName, memo \n"
+                        + "from categories\n"
+                        + "where typeId = ?";
+                PreparedStatement cmd = this.connection.prepareStatement(sqlString);
+                cmd.setInt(1, typteId);
+                ResultSet rs = cmd.executeQuery();
+                boolean flag = true;
+                while (rs.next() && flag) {
+                    x = new Category();
+                    x.setTypeId(typteId);
+                    x.setCategoryName(rs.getString("categoryName"));
+                    x.setMemo(rs.getString("memo"));
+                    flag = false;
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }finally {
+                try {
+                    if (connection != null) {
+                        connection.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+        return x;
+    }
+    
+    public boolean checkExistCategoryName(String name) {
+        boolean isExist = false;
+        if (connection != null) {
+            try {
+                String sqlString = "select categoryName from categories where categoryName = ?";
+                PreparedStatement cmd = this.connection.prepareStatement(sqlString);
+                cmd.setString(1, name);
+                ResultSet rs = cmd.executeQuery();
+                boolean flag = true;
+                while (rs.next() && flag) {
+                    isExist = true;
+                    flag = false;
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }finally {
+                try {
+                    if (connection != null) {
+                        connection.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+        return isExist;
     }
 
     @Override
@@ -127,7 +251,7 @@ public class CategoryDAO implements Accessible<Category> {
             Map<Integer, Category> mapCategory = (TreeMap<Integer, Category>) new CategoryDAO().listAll();
             System.out.println(mapCategory.get(1).getCategoryName());
             for (Integer i : mapCategory.keySet()) {
-                
+
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);

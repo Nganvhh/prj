@@ -4,6 +4,7 @@
     Author     : NganNganchimte
 --%>
 
+<%@page import="controllers.IConstant"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -31,7 +32,7 @@
             <jsp:forward page="MainController?action=home"/>
         </c:if>
         <c:if test="${mapAccount == null}">
-            <jsp:forward page="MainController?action=loadListAccount"/>
+            <jsp:forward page="AccountController?accountRequest=<%= IConstant.LOAD_ACCOUNT %>"/>
         </c:if>
         <div class="row">
             <jsp:include page="header.jsp"/>
@@ -110,5 +111,4 @@
             </div>
         </div>
     </body>
-</body>
 </html>

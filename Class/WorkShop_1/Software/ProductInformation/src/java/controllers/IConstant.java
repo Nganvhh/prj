@@ -12,7 +12,31 @@ package controllers;
 public interface IConstant {
     public final String LOGIN = "login";
     public final String HOME = "home";
+    public final String LINK_HOME = "homeScreen.jsp";
     public final String LOGOUT = "logout";
     public final String REGISTER = "register";
     public final String CATEGORY = "category";
+    
+    public final String LOAD_ACCOUNT = "loadAccount";
+    public final String LINK_PAGE_ACCOUNT = "listAccount.jsp";
+    public final String ADD_ACCOUNT = "addAccount";
+    public final String ADD_PAGE_ACCOUNT = "addPageAccount";
+    public final String VALIDATION_ACCOUNT = "validationAccount";
+    public final String VALIDATION_UPDATE_ACCOUNT = "validationUpdateAccount";
+    public final String DELETE_ACCOUNT = "deleteAccount";
+    public final String UPDATE_ACCOUNT = "updateAccount";
+    public final String CHANGE_STATE_ACCOUNT = "changeStateAccount";
+    
+    public final String LINK_PAGE_CATEGORY = "listCategory.jsp";
+    public final String ADD_CATEGORY = "addCategory";
+    public final String ADD_PAGE_CATEGORY = "addPageCategory";
+    public final String LINK_ADD_CATEGORY = "addCategoryScreen.jsp";
+    public final String VALIDATION_CATEGORY = "validationCategory";
+    public final String LOAD_CATEGORY = "loadCategory";
+    public final String SHOW_CATEGORY = "showCategory";
+    public final String DELETE_CATEGORY = "deleteCategory";
+    public final String UPDATE_CATEGORY = "updateCategory";
+    public final String VALIDATION_UPDATE_CATEGORY = "validationUpdateCategory";
+    public final String UPDATE_PAGE_CATEGORY = "updatePageCategory";
+    public final String LINK_UPDATE_CATEGORY = "updateCategoryScreen.jsp";
 }

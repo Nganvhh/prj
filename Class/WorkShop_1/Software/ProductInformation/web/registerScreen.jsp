@@ -207,7 +207,7 @@
                 </c:if>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" id="btn-register" class="btn btn-default">Register</button>
+                        <button type="submit" id="btn-newCategory" class="btn btn-default">Register</button>
                     </div>
                 </div>
             </form>

@@ -41,104 +41,97 @@ public class RegisterServlet extends HttpServlet {
         HttpSession session = request.getSession();
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample co{e. */
-            try {
-                String behaviour = request.getParameter("behaviour");
-                System.out.println("behaviour: " + behaviour);
-                String account = request.getParameter("account");
-                System.out.println("account: " + account);
-                String pass = request.getParameter("pass");
-                System.out.println("pass: " + pass);
-                String confrim = request.getParameter("confirm");
-                System.out.println("confirm: "+confrim);
-                String lastName = request.getParameter("lastName");
-                System.out.println("lastname: " + lastName);
-                String firstName = request.getParameter("firstName");
-                String phone = request.getParameter("phone");
-                String dob = request.getParameter("birthDay");
-                Date birthDay = null;
-                if (dob == null || dob.isEmpty()) {
+            String behaviour = request.getParameter("behaviour");
+            System.out.println("behaviour: " + behaviour);
+            String account = request.getParameter("account");
+            System.out.println("account: " + account);
+            String pass = request.getParameter("pass");
+            System.out.println("pass: " + pass);
+            String confrim = request.getParameter("confirm");
+            System.out.println("confirm: " + confrim);
+            String lastName = request.getParameter("lastName");
+            System.out.println("lastname: " + lastName);
+            String firstName = request.getParameter("firstName");
+            String phone = request.getParameter("phone");
+            String dob = request.getParameter("birthDay");
+            Date birthDay = null;
+            if (dob == null || dob.isEmpty()) {
 //                    birthDay = Date.valueOf("1800-01-01");
-                } else {
-                    birthDay = Date.valueOf(dob);
-                }
-                System.out.println(request.getParameter("gender"));
-                int formGender = Integer.parseInt(request.getParameter("gender"));
-                boolean gender = (formGender == 1) ? true : false;
-                String formRole = request.getParameter("role");
-                System.out.println("formGender: " + formGender);
-                System.out.println("gender: " + gender);
-                
-                int roleInSystem;
-                if (formRole == null || formRole.equals("Customer")) {
-                    roleInSystem = 0;
-                } else if (formRole.equalsIgnoreCase("Administrator")) {
-                    roleInSystem = 1;
-                } else {
-                    roleInSystem = 2;
-                }
-                
-                int modify;
-                try {
-                    modify = (int) session.getAttribute("modify");
-                } catch (Exception e) {
-                    modify = 0;
-                }
-                boolean isActive = true;
-                if(modify == 0 || behaviour.equals("register")){
-                    isActive = true;
-                } else if(modify == 1) {
-                    isActive = (Integer.parseInt(request.getParameter("isUse")) == 1)?true:false;
-                } else{
-                    
-                }
-                boolean isValid = true;
-                
-                if (phone == null || phone.isEmpty()){
-                    isValid = true;
-                } else if (phone.matches("^(84|0[3|5|7|8|9])([0-9]{8})$") == false) {
-                    request.setAttribute("ErrorPhoneFormat", "The phone number format is incorrect.");
+            } else {
+                birthDay = Date.valueOf(dob);
+            }
+            System.out.println(request.getParameter("gender"));
+            int formGender = Integer.parseInt(request.getParameter("gender"));
+            boolean gender = (formGender == 1) ? true : false;
+            String formRole = request.getParameter("role");
+            System.out.println("formGender: " + formGender);
+            System.out.println("gender: " + gender);
+
+            int roleInSystem;
+            if (formRole == null || formRole.equals("Customer")) {
+                roleInSystem = 0;
+            } else if (formRole.equalsIgnoreCase("Administrator")) {
+                roleInSystem = 1;
+            } else {
+                roleInSystem = 2;
+            }
+
+            int modify;
+            try {
+                modify = (int) session.getAttribute("modify");
+            } catch (Exception e) {
+                modify = 0;
+            }
+            boolean isActive = true;
+            if (modify == 0 || behaviour.equals("register")) {
+                isActive = true;
+            } else if (modify == 1) {
+                isActive = (Integer.parseInt(request.getParameter("isUse")) == 1) ? true : false;
+            } else {
+
+            }
+            boolean isValid = true;
+
+            if (phone == null || phone.isEmpty()) {
+                isValid = true;
+            } else if (phone.matches("^(84|0[3|5|7|8|9])([0-9]{8})$") == false) {
+                request.setAttribute("ErrorPhoneFormat", "The phone number format is incorrect.");
+                isValid = false;
+            }
+            if (behaviour.equals("register")) {
+                if (new AccountDAO(getServletContext()).checkExist("account", account)) {
+                    request.setAttribute("ExistAccount", "This username is already exist.");
                     isValid = false;
                 }
-                if(behaviour.equals("register")){
-                    if (new AccountDAO(getServletContext()).checkExist("account", account)) {
-                        request.setAttribute("ExistAccount", "This username is already exist.");
-                        isValid = false;
-                    }
-                    if (!pass.equals(confrim)) {
-                        request.setAttribute("ConfirmFalse", "Those passwords didn’t match. Try again.");
-                        isValid = false;
-                    }
-                } else if(behaviour.equals("update")) {
-                    
-                } 
-                if (isValid == false) {
-                    if(behaviour.equals("register")){
-                        request.getRequestDispatcher("MainController?action=register").forward(request, response);
-                    } else if(behaviour.equals("update")) {
-                        request.getRequestDispatcher("MainController?action=update&account=" + account).forward(request, response);
-                    }
-                } else {
-                    Account x = new Account(account, pass, firstName, lastName, birthDay, gender, phone, isActive, roleInSystem);
-                    if(behaviour.equals("register")){
-                        new AccountDAO(getServletContext()).insertRec(x);
-                    } else if(behaviour.equals("update")) {
-                        new AccountDAO(getServletContext()).updateRec(x);
-                    }
-                    if (modify == 0) {
-                        session.setAttribute("loginedAccount", x);
-                        request.getRequestDispatcher("MainController?action=home").forward(request, response);
-                        System.out.println("thanh cong tao account");
-                    } else {
-                        request.getRequestDispatcher("MainController?action=loadListAccount").forward(request, response);
-                    }
+                if (!pass.equals(confrim)) {
+                    request.setAttribute("ConfirmFalse", "Those passwords didn’t match. Try again.");
+                    isValid = false;
                 }
+            } else if (behaviour.equals("update")) {
 
-            } catch (ClassNotFoundException ex) {
-                System.out.println("exception r");
-                Logger.getLogger(RegisterServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(RegisterServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+            if (isValid == false) {
+                if (behaviour.equals("register")) {
+                    request.getRequestDispatcher("MainController?action=register").forward(request, response);
+                } else if (behaviour.equals("update")) {
+                    request.getRequestDispatcher("MainController?action=update&account=" + account).forward(request, response);
+                }
+            } else {
+                Account x = new Account(account, pass, firstName, lastName, birthDay, gender, phone, isActive, roleInSystem);
+                if (behaviour.equals("register")) {
+                    new AccountDAO(getServletContext()).insertRec(x);
+                } else if (behaviour.equals("update")) {
+                    new AccountDAO(getServletContext()).updateRec(x);
+                }
+                if (modify == 0) {
+                    session.setAttribute("loginedAccount", x);
+                    request.getRequestDispatcher("MainController?action=home").forward(request, response);
+                    System.out.println("thanh cong tao account");
+                } else {
+                    request.getRequestDispatcher("MainController?action=loadListAccount").forward(request, response);
+                }
+            }
+
         }
     }
 

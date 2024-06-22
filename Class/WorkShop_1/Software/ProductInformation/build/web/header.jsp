@@ -4,6 +4,7 @@
     Author     : NganNganchimte
 --%>
 
+<%@page import="controllers.IConstant"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -25,7 +26,7 @@
         <link rel="stylesheet" href="styles/headerStyle.css">
     </head>
     <body>
-        <header>
+        <header style="z-index: 50;">
             <c:choose>
                 <c:when test="${loginedAccount == null || modify == 0}">
                     <div class="header_button">
@@ -52,10 +53,9 @@
                                     <c:if test="${loginedAccount != null}">
                                         Welcome to <strong style="color: red">${loginedAccount.account} </strong>[${loginedAccount.lastName.concat(" ").concat(loginedAccount.firstName).trim()}]
                                     </c:if>
-                                </a>9
+                                </a>
                             </div>
                             <ul class="nav navbar-nav  navbar-inverse">
-
                                 <li>
                                     <a href="MainController?action=home">Home</a>
                                 </li>
@@ -70,7 +70,6 @@
                                         </c:forEach>
                                     </ul>
                                 </li>
-
                             </ul>
 
                             <form class="navbar-form navbar-right" action="#">
@@ -78,7 +77,7 @@
                                     <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Tìm kiếm"
+                                        placeholder="Search"
                                         />
                                     <span
                                         class="glyphicon glyphicon-search form-control-feedback"></span>
@@ -96,7 +95,7 @@
                         </ul>
                     </div>
 
-                    <nav class="navbar navbar-inverse">
+                    <nav class="navbar navbar-inverse" style="z-index: 50;">
                         <div class="container-fluid">
                             <div class="navbar-header">
                                 <a class="navbar-brand" href="MainController?action=home">
@@ -110,8 +109,8 @@
                             </div>
                             <ul class="nav navbar-nav  navbar-inverse">
                                 <li><a href="MainController?action=home">Home</a></li>
-                                <li><a href="MainController?action=showListAccount">Accounts</a></li>
-                                <li><a href="MainController?action=showListCategory">Categories</a></li>
+                                <li><a href="AccountController?accountRequest=<%= IConstant.LOAD_ACCOUNT %>">Accounts</a></li>
+                                <li><a href="CategoryController?category=<%= IConstant.LOAD_CATEGORY %>">Categories</a></li>
                                 <li><a href="MainController?action=showListProduct">Products</a></li>                                
                             </ul>
 
@@ -129,6 +128,8 @@
                     </nav>
                 </c:otherwise>
             </c:choose>
+            
+            
         </header>
         <script>
             $(document).ready(function () {

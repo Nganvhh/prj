@@ -32,14 +32,20 @@ public class AccountDAO implements Accessible<Account> {
         this.connection = new ConnectDB().getConnection();
     }
 
-    public AccountDAO(ServletContext sc) throws ClassNotFoundException, SQLException {
-        String hostName = sc.getInitParameter("host");
-        String instance = sc.getInitParameter("instance");
-        String port = sc.getInitParameter("port");
-        String dbName = sc.getInitParameter("DbName");
-        String user = sc.getInitParameter("user");
-        String password = sc.getInitParameter("password");
-        this.connection = new ConnectDB(hostName, port, dbName, user, password, instance).getConnection();
+    public AccountDAO(ServletContext sc) {
+        try {
+            String hostName = sc.getInitParameter("host");
+            String instance = sc.getInitParameter("instance");
+            String port = sc.getInitParameter("port");
+            String dbName = sc.getInitParameter("DbName");
+            String user = sc.getInitParameter("user");
+            String password = sc.getInitParameter("password");
+            this.connection = new ConnectDB(hostName, port, dbName, user, password, instance).getConnection();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
