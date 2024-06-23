@@ -9,6 +9,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page errorPage="error.jsp" %> 
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -59,7 +60,7 @@
         <jsp:include page="header.jsp"/>
         <div class="container">
             <h2>Update account</h2>
-            <form action="CategoryController?category=<%= IConstant.VALIDATION_UPDATE_CATEGORY%>" class="form-horizontal" method="post" accept-charset="UTF-8">
+            <form action="CategoryController" class="form-horizontal" method="post" accept-charset="UTF-8">
                 <input type="hidden" name="typeId" value="${updatedCategory.typeId}"/>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="categoryName">Category name</label>
@@ -90,8 +91,8 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" id="btn-newCategory" class="btn btn-danger">Cancel</button>
-                        <button type="submit" id="btn-newCategory" class="btn btn-success">Save</button>
+                        <button type="submit" id="btn-newCategory" class="btn btn-danger" name="category" value="<%= IConstant.SHOW_CATEGORY %>">Cancel</button>
+                        <button type="submit" id="btn-newCategory" class="btn btn-success" name="category" value="<%= IConstant.VALIDATION_UPDATE_CATEGORY %>">Save</button>
                     </div>
                 </div>
             </form>
@@ -119,7 +120,7 @@
                 let categoryNameValue = categoryNameEle.value;
                 let isCheck = true;
 
-                // Kiểm tra trường firstname
+                // Kiểm tra trường categoryName
                 if (categoryNameValue == '') {
                     setError(categoryNameEle, "Category name can not be empty.");
                     isCheck = false;

@@ -16,8 +16,11 @@ public interface IConstant {
     public final String LOGOUT = "logout";
     public final String REGISTER = "register";
     public final String CATEGORY = "category";
+    public final String PRODUCT_DETAIL = "detail";
     
+    //AccountController
     public final String LOAD_ACCOUNT = "loadAccount";
+    public final String LINK_ADD_ACCOUNT = "";
     public final String LINK_PAGE_ACCOUNT = "listAccount.jsp";
     public final String ADD_ACCOUNT = "addAccount";
     public final String ADD_PAGE_ACCOUNT = "addPageAccount";
@@ -27,6 +30,7 @@ public interface IConstant {
     public final String UPDATE_ACCOUNT = "updateAccount";
     public final String CHANGE_STATE_ACCOUNT = "changeStateAccount";
     
+    //CategoryController
     public final String LINK_PAGE_CATEGORY = "listCategory.jsp";
     public final String ADD_CATEGORY = "addCategory";
     public final String ADD_PAGE_CATEGORY = "addPageCategory";
@@ -39,4 +43,19 @@ public interface IConstant {
     public final String VALIDATION_UPDATE_CATEGORY = "validationUpdateCategory";
     public final String UPDATE_PAGE_CATEGORY = "updatePageCategory";
     public final String LINK_UPDATE_CATEGORY = "updateCategoryScreen.jsp";
+    
+    //ProductController
+    public final String LINK_PAGE_PRODUCT = "listProduct.jsp";
+    public final String ADD_PRODUCT = "addProduct";
+    public final String ADD_PAGE_PRODUCT = "addPageProduct";
+    public final String LINK_ADD_PRODUCT = "addProductScreen.jsp";
+    public final String VALIDATION_PRODUCT = "validationProduct";
+    public final String LOAD_PRODUCT = "loadProduct";
+    public final String SHOW_PRODUCT = "showProduct";
+    public final String DELETE_PRODUCT = "deleteProduct";
+    public final String UPDATE_PRODUCT = "updateProduct";
+    public final String VALIDATION_UPDATE_PRODUCT = "validationUpdateProduct";
+    public final String UPDATE_PAGE_PRODUCT = "updatePageProduct";
+    public final String LINK_UPDATE_PRODUCT = "updateProductScreen.jsp";
+    
 }

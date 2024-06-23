@@ -139,6 +139,11 @@ public class MainController extends HttpServlet {
                         request.setAttribute("updatedAccount", updatedAccount);
                         url = "updateAccount.jsp";
                     break;
+                case IConstant.PRODUCT_DETAIL:
+                    String productId = request.getParameter("productId");
+                    Product p = new ProductDAO(getServletContext()).getObjectById(productId);
+                    request.setAttribute("selectedProduct", p);
+                    url = "productDetailScreen.jsp";
                 default:
                     break;
             }

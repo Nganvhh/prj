@@ -9,6 +9,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page errorPage="error.jsp" %> 
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -75,7 +76,7 @@
 
         <div class="container">
             <h2>New category</h2>
-            <form action="CategoryController?category=<%= IConstant.VALIDATION_CATEGORY%>" class="form-horizontal" method="post" accept-charset="UTF-8">
+            <form action="CategoryController" class="form-horizontal" method="post" accept-charset="UTF-8">
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="categoryName">Category name</label>
                     <div class="col-sm-10 check-input">
@@ -86,6 +87,7 @@
                             name="categoryName"
                             autocomplete="new-name"
                             placeholder="Name"
+                            value="${IsCreatingCategory.categoryName}"
                             required
                             />
                         <small class="form-text"></small>
@@ -97,12 +99,13 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="memo">Memo</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" name="memo" placeholder="" style="width: 100%" rows="5"></textarea>
+                        <textarea class="form-control" name="memo" placeholder="" style="width: 100%" rows="5">${IsCreatingCategory.memo}</textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" id="btn-newCategory" class="btn btn-success">Submit</button>
+                        <button onclick="out(event)" type="submit" id="btn-cancel" class="btn btn-danger" name="category" value="<%= IConstant.SHOW_CATEGORY %>">Cancel</button>
+                        <button type="submit" id="btn-newCategory" class="btn btn-success" name="category" value="<%= IConstant.VALIDATION_CATEGORY%>">Submit</button>
                     </div>
                 </div>
             </form>
@@ -111,7 +114,7 @@
         <script>
             const btnNewCategory = document.getElementById('btn-newCategory');
             const inputEles = document.querySelectorAll('.check-input');
-
+            const btnCancel = document.getElementById('btn-cancel');
             btnNewCategory.addEventListener('click', function () {
                 Array.from(inputEles).map((ele) =>
                     ele.classList.remove('success', 'error'))
@@ -120,6 +123,13 @@
                     console.log(window.location.href);
                 }
             });
+            function out(event) {
+                let name = document.getElementById('categoryName');
+                name.removeAttribute('required');
+                document.getElementById('btn-cancel').submit();
+            }
+            
+
 
 
             // Truy cập vào các ô input
@@ -139,7 +149,7 @@
                 }
                 return isCheck;
             }
-
+            
             function setError(ele, message) {
                 let parentEle = ele.parentNode;
                 parentEle.classList.add('error');

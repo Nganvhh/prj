@@ -85,6 +85,7 @@ public class CategoryDAO implements Accessible<Category> {
         int result = 0;
         if (connection != null) {
             try {
+                
                 String sqlString = "update categories\n"
                         + "         set categoryName = ?, memo = ?\n"
                         + "         where typeId = ?";

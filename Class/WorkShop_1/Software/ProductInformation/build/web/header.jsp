@@ -7,6 +7,7 @@
 <%@page import="controllers.IConstant"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page errorPage="error.jsp" %> 
 <!DOCTYPE html>
 <html>
     <head>
@@ -95,7 +96,7 @@
                         </ul>
                     </div>
 
-                    <nav class="navbar navbar-inverse" style="z-index: 50;">
+                    <nav class="navbar navbar-inverse">
                         <div class="container-fluid">
                             <div class="navbar-header">
                                 <a class="navbar-brand" href="MainController?action=home">
@@ -109,9 +110,23 @@
                             </div>
                             <ul class="nav navbar-nav  navbar-inverse">
                                 <li><a href="MainController?action=home">Home</a></li>
-                                <li><a href="AccountController?accountRequest=<%= IConstant.LOAD_ACCOUNT %>">Accounts</a></li>
-                                <li><a href="CategoryController?category=<%= IConstant.LOAD_CATEGORY %>">Categories</a></li>
-                                <li><a href="MainController?action=showListProduct">Products</a></li>                                
+                                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Accounts<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <c:forEach items="${mapCategory.keySet()}" var="i">
+                                            <li>
+                                                <a class="sidebar_link" href="AccountController?accountRequest=<%= IConstant.LOAD_ACCOUNT%>">
+                                                    List Accounts
+                                                </a>
+                                                <a class="sidebar_link" href="AccountController?accountRequest=<%= IConstant.LOAD_ACCOUNT%>">
+                                                    Create Account
+                                                </a>
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
+                                </li>
+                                <li><a href="AccountController?accountRequest=<%= IConstant.LOAD_ACCOUNT%>">Accounts</a></li>
+                                <li><a href="CategoryController?category=<%= IConstant.LOAD_CATEGORY%>">Categories</a></li>
+                                <li><a href="ProductController?productRequest=<%= IConstant.LOAD_PRODUCT%>">Products</a></li>                                
                             </ul>
 
                             <form class="navbar-form navbar-right" action="#">
@@ -128,8 +143,8 @@
                     </nav>
                 </c:otherwise>
             </c:choose>
-            
-            
+
+
         </header>
         <script>
             $(document).ready(function () {

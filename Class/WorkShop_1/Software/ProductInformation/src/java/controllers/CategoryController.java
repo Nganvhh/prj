@@ -65,9 +65,6 @@ public class CategoryController extends HttpServlet {
                 case IConstant.UPDATE_PAGE_CATEGORY:
                     repairBeforeUpdate(request, response);
                     break;
-                case IConstant.UPDATE_CATEGORY:
-                    update(request, response);
-                    break;
                 case IConstant.VALIDATION_UPDATE_CATEGORY:
                     validationUpdate(request, response);
                     break;
@@ -132,17 +129,19 @@ public class CategoryController extends HttpServlet {
         if(result != 0){
             load(request, response);
         } else {
-            
+            url = IConstant.LINK_PAGE_CATEGORY;
         }
     }
     
     private void validation(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         String categoryName = request.getParameter("categoryName");
+        String memo = request.getParameter("memo");
         boolean x = new CategoryDAO(getServletContext()).checkExistCategoryName(categoryName);
         if(x) {
             request.setAttribute("ExistCategoryName", "This category name already exists");
-            url = IConstant.LINK_UPDATE_CATEGORY;
+            request.setAttribute("IsCreatingCategory", new Category(categoryName, memo));
+            url = IConstant.LINK_ADD_CATEGORY;
         } else {
             add(request, response);
         }
@@ -155,7 +154,7 @@ public class CategoryController extends HttpServlet {
         if(result != 0) {
             load(request, response);
         } else {
-            
+            url = IConstant.LINK_PAGE_CATEGORY;
         }
     }
     

@@ -8,6 +8,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page errorPage="error.jsp" %> 
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -32,7 +33,7 @@
             <jsp:forward page="MainController?action=home"/>
         </c:if>
         <c:if test="${mapCategory == null}">
-            <jsp:forward page="MainController?action=loadListCategory"/>
+            <jsp:forward page="CategoryController?category=<%= IConstant.LOAD_CATEGORY %>"/>
         </c:if>
         <div class="row">
             <jsp:include page="header.jsp"/>

@@ -4,8 +4,10 @@
     Author     : NganNganchimte
 --%>
 
+<%@page import="controllers.IConstant"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page errorPage="error.jsp" %> 
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,7 +34,7 @@
         <c:if test="${mapProduct == null||mapProduct.isEmpty()}">
             <jsp:forward page="MainController?action=loadListProduct"/>
         </c:if>
-        
+
         <jsp:include page="header.jsp"/>
         <nav class="sidebar">
             <div>
@@ -53,7 +55,7 @@
         <div class="row all_products">
             <c:forEach items="${mapProduct.keySet()}" var="i">
                 <div class=" col-lg-3 col-md-4 col-xs-6 a">
-                    <a class="product_wrapper">
+                    <a class="product_wrapper" href="MainController?action=<%=IConstant.PRODUCT_DETAIL%>&productId=${mapProduct.get(i).productId}">
                         <div>
                             <img src="Images${mapProduct.get(i).productImage}" alt="ảnh sản phẩm">
                         </div>

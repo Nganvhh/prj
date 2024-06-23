@@ -54,7 +54,9 @@ public class AccountController extends HttpServlet {
                 case IConstant.LOAD_ACCOUNT:
                     load(request, response);
                     break;
-
+                case IConstant.ADD_ACCOUNT:
+                    break;
+//                    case IConstant.LI
             }
         } catch (Exception e) {
 
